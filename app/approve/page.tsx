@@ -19,7 +19,14 @@ export default function ApproveRequests() {
   useEffect(() => {
     async function fetchRequests() {
       try {
-        const response = await axios.get("/api/donations/pending");
+        const response = await axios.get("/api/donations/pending", {
+          headers: {
+            "Cache-Control": "no-cache",
+            Pragma: "no-cache",
+            Expires: "0",
+          },
+          params: { timestamp: new Date().getTime() }, // Prevents cache
+        });
         setRequests(response.data);
       } catch (error) {
         console.error("Failed to fetch donation requests", error);
@@ -27,6 +34,7 @@ export default function ApproveRequests() {
     }
     fetchRequests();
   }, []);
+  
 
   useEffect(() => {
     if (userRole !== "admin") {
