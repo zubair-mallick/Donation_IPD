@@ -64,7 +64,7 @@ export default function ApproveRequests() {
             </CardHeader>
             <CardContent className="p-6 space-y-3">
               <p className="text-sm text-muted-foreground">{request.description}</p>
-              <p className="text-sm text-primary font-semibold">Location: {request.location}</p>
+              <p className="text-sm text-primary font-semibold">Location: {request?.location}</p>
               <div className="flex items-center gap-2 mt-2">
                 <Dialog>
                   <DialogTrigger asChild>
@@ -78,7 +78,7 @@ export default function ApproveRequests() {
                     </DialogHeader>
                     <p><strong>Category:</strong> {request.category}</p>
                     <p><strong>Description:</strong> {request.description}</p>
-                    <p><strong>Location:</strong> {request.location}</p>
+                    <p><strong>Location:</strong> {request?.location}</p>
                     <p><strong>Urgency:</strong> {request.urgency}</p>
                     {request.fileUrl && (
                       <a href={request.fileUrl} className="text-primary underline mt-2 block" target="_blank" rel="noopener noreferrer">

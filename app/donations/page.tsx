@@ -89,7 +89,7 @@ function RequestCard({ request, category }) {
       </CardHeader>
       <CardContent>
         <div className="flex items-center text-sm text-muted-foreground justify-center">
-          <MapPin className="h-4 w-4 mr-2" />{request.location}
+          <MapPin className="h-4 w-4 mr-2" />{request?.location}
         </div>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger asChild>
