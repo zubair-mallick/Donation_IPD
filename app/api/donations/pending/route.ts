@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import connectToDatabase from "@/lib/mongodb";
 import Donation from "@/models/Donation";
 
-export async function GET(req: NextRequest) {
+export async function GET(req: NextRequest,res: NextResponse){
+  res.setHeader(
+    "Cache-Control",
+    "no-cache, no-store, max-age=0, must-revalidate"
+  );
   await connectToDatabase();
   try {
     const donations = await Donation.find({ status: "pending" });
@@ -14,11 +18,7 @@ export async function GET(req: NextRequest) {
 
     const response = NextResponse.json(donations, { status: 200 });
 
-    // Disable caching
-    response.headers.set("Cache-Control", "no-store, no-cache, must-revalidate, proxy-revalidate");
-    response.headers.set("Pragma", "no-cache");
-    response.headers.set("Expires", "0");
-
+\
     return response;
   } catch (error: any) {
     return NextResponse.json({ error: error.message }, { status: 500 });
