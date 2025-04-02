@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Building2, User } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast"; // Import toast
@@ -27,10 +27,13 @@ function RequestForm({ role }: { role: string }) {
   const { isSignedIn } = useAuth();
   const router = useRouter();
 
-  if (!isSignedIn) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push("/login");
+    }
+  }, [isSignedIn, router]);
+
+  if (!isSignedIn) return null;
 
   const [category, setCategory] = useState("");
   const [title, setTitle] = useState("");

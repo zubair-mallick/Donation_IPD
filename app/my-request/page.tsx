@@ -11,6 +11,9 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Router } from "lucide-react";
+import { useAuth } from "@clerk/nextjs";
+import { useRouter } from "next/router";
 
 const statusColors = {
   pending: "bg-yellow-500",
@@ -25,6 +28,7 @@ export default function MyRequests() {
   const [error, setError] = useState(null);
   const [statusFilter, setStatusFilter] = useState("all");
   const [categoryFilter, setCategoryFilter] = useState("All");
+  
 
   useEffect(() => {
     const fetchRequests = async () => {

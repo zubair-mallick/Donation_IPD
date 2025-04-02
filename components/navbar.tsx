@@ -38,10 +38,11 @@ export default function Navbar() {
           <nav className="flex items-center space-x-6 text-sm font-medium">
             <Link href="/donations" className="transition-colors hover:text-foreground/80">Donate</Link>
             <Link href="/requests" className="transition-colors hover:text-foreground/80">Requests</Link>
-            <Link href="/my-request" className="transition-colors hover:text-foreground/80 flex items-center">
+            {isAdmin && ( <Link href="/my-request" className="transition-colors hover:text-foreground/80 flex items-center">
 
               My Requests
             </Link>
+            )}
             {isAdmin && (
               <Link href="/approve" className="transition-colors hover:text-foreground/80 flex items-center">
                 <CheckCircle className="h-4 w-4 mr-1 text-green-600" />

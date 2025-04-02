@@ -28,8 +28,13 @@ export default function ApproveRequests() {
     fetchRequests();
   }, []);
 
+  useEffect(() => {
+    if (userRole !== "admin") {
+      router.push("/");
+    }
+  }, [userRole, router]);
+
   if (userRole !== "admin") {
-    router.push("/");
     return <p className="text-center text-red-500 py-12">Access Denied</p>;
   }
 

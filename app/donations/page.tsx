@@ -28,10 +28,14 @@ function DonationForm({ category, request, onClose }) {
   const [collectionDate, setCollectionDate] = useState("");
   const [location, setLocation] = useState("");
 
-  if (!isSignedIn) {
-    router.push("/login");
-    return null;
-  }
+  useEffect(() => {
+    if (!isSignedIn) {
+      router.push("/login");
+    }
+  }, [isSignedIn]);
+  
+  if (!isSignedIn) return null; 
+ 
 
   const handleSubmit = async () => {
     try {

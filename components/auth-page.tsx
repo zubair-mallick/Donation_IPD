@@ -1,9 +1,11 @@
-import { SignIn, SignUp } from '@clerk/nextjs';
-import { useRouter } from 'next/router';
+"use client";
+
+import { SignIn, SignUp } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
 
 const AuthPage = () => {
-  const router = useRouter();
-  const isSignUp = router.pathname === '/signup';
+  const pathname = usePathname();
+  const isSignUp = pathname === "/signup";
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
