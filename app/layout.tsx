@@ -3,7 +3,8 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { ClerkProvider } from '@clerk/nextjs';
 import { ThemeProvider } from "@/components/theme-provider";
-import { Toaster } from "@/components/ui/toaster";
+import { Toaster as HotToaster } from "react-hot-toast"; // Renamed to avoid conflicts
+import { Toaster as CustomToaster } from "@/components/ui/toaster"; // Your custom UI toaster
 import Navbar from '@/components/navbar';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -32,7 +33,8 @@ export default function RootLayout({
             <main className="min-h-screen bg-background">
               {children}
             </main>
-            <Toaster />
+            <HotToaster position="top-right" reverseOrder={false} /> {/* react-hot-toast */}
+            <CustomToaster /> {/* Custom UI Toaster */}
           </ThemeProvider>
         </body>
       </html>

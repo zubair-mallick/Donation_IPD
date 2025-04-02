@@ -88,11 +88,16 @@ export default function MyRequests() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {filteredRequests.length > 0 ? (
           filteredRequests.map((request) => (
-            <Card key={request.id}>
+            <Card key={request.id} className="w-72 h-72 flex flex-col justify-between overflow-hidden">
+              {request.image && (
+                <div className="w-full h-40 overflow-hidden">
+                  <img src={request.image} alt="Request" className="w-full h-full object-cover" />
+                </div>
+              )}
               <CardHeader>
                 <CardTitle>{request.title}</CardTitle>
               </CardHeader>
-              <CardContent className="p-6">
+              <CardContent className="p-4 flex flex-col justify-between flex-grow">
                 <div className="flex justify-between items-center">
                   <Badge className={`${statusColors[request.status]} text-white`}>{request.status}</Badge>
                   <Dialog>

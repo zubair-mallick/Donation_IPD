@@ -1,4 +1,4 @@
-"use client"
+"use client";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -12,10 +12,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { Building2, User, Upload } from "lucide-react";
+import { Building2, User } from "lucide-react";
 import { useState } from "react";
 import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
+import { toast } from "react-hot-toast"; // Import toast
 
 const requestCategories = {
   individual: ["food", "clothes", "books", "medical", "education"],
@@ -37,12 +38,12 @@ function RequestForm({ role }: { role: string }) {
   const [location, setLocation] = useState("");
   const [urgency, setUrgency] = useState("low");
   const [proofDocument, setProofDocument] = useState<File | null>(null);
+  const [image, setImage] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
 
   const handleSubmit = async () => {
     setLoading(true);
 
-    // Build the FormData with matching keys
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -52,22 +53,28 @@ function RequestForm({ role }: { role: string }) {
     if (proofDocument) {
       formData.append("proofDocument", proofDocument);
     }
+    if (image) {
+      formData.append("image", image);
+    }
 
     try {
       const response = await fetch("/api/donations", {
         method: "POST",
         body: formData,
       });
+
       if (response.ok) {
-        alert("Request submitted successfully");
+        toast.success("Request submitted successfully!");
         router.push("/requests");
       } else {
-        alert("Failed to submit request");
+        toast.error("Failed to submit request.");
       }
     } catch (error) {
       console.error("Error submitting request:", error);
+      toast.error("An error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
   return (
@@ -125,6 +132,16 @@ function RequestForm({ role }: { role: string }) {
           />
         </div>
       )}
+
+      <div className="grid gap-2">
+        <Label htmlFor="image">Upload Image</Label>
+        <Input
+          id="image"
+          type="file"
+          accept="image/*"
+          onChange={(e) => setImage(e.target.files?.[0] || null)}
+        />
+      </div>
 
       <Button onClick={handleSubmit} disabled={loading || (urgency === "high" && !proofDocument)}>
         {loading ? "Submitting..." : "Submit Request"}

@@ -53,6 +53,9 @@ export default function ApproveRequests() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {requests.map((request) => (
           <Card key={request._id} className="shadow-lg border rounded-xl overflow-hidden">
+            {request.image && (
+              <img src={request.image} alt="Request Image" className="w-full h-48 object-cover" style={{ aspectRatio: '1 / 1' }} />
+            )}
             <CardHeader>
               <CardTitle className="flex justify-between items-center">
                 {request.name}
@@ -77,9 +80,11 @@ export default function ApproveRequests() {
                     <p><strong>Description:</strong> {request.description}</p>
                     <p><strong>Location:</strong> {request.location}</p>
                     <p><strong>Urgency:</strong> {request.urgency}</p>
-                    <a href={request.file} className="text-primary underline mt-2 block" target="_blank" rel="noopener noreferrer">
-                      View Attached File
-                    </a>
+                    {request.fileUrl && (
+                      <a href={request.fileUrl} className="text-primary underline mt-2 block" target="_blank" rel="noopener noreferrer">
+                        View Attached File
+                      </a>
+                    )}
                   </DialogContent>
                 </Dialog>
                 <Button 

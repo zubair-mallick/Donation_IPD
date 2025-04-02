@@ -5,7 +5,7 @@ interface DonationDocument extends Document, Donation {}
 
 const DonationSchema = new Schema<DonationDocument>({
   title: { type: String, required: true },
-  image: { type: String },
+  image: { type: String, required: true },
   description: { type: String, required: true },
   category: { type: String },
   location: { type: String },
